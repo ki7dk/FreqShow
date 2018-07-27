@@ -24,6 +24,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+# Enhancements over the original Freqshow by Dan Stixrud, WQ7T
 from views import *
 
 
@@ -64,6 +65,22 @@ class FreqShowController(object):
 		"""
 		self.change_view(NumberDialog(self.model, label_text, unit_text,
 			cancel=self._change_to_previous, **kwargs))
+
+	def filter_dialog(self,label_text, unit_text, **kwargs):
+                """Open a filter dialog which goes back to the previous view when
+                canceled.
+                """
+                self.change_view(FilterDialog(self.model, label_text, unit_text,
+                        cancel=self._change_to_previous, **kwargs))
+
+        def boolean_dialog(self,label_text, unit_text, **kwargs):
+                """Open a boolean dialog which goes back to the previous view when
+                canceled.
+                """
+                self.change_view(BooleanDialog(self.model, label_text, unit_text,
+                        cancel=self._change_to_previous, **kwargs))
+
+
 
 	def _change_to_previous(self, *args):
 		# Change to previous view, note can only go back one level.

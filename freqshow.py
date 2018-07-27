@@ -22,6 +22,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+# Enhancements over the original Freqshow by Dan Stixrud, WQ7T
 import os
 import time
 
@@ -33,27 +34,40 @@ import ui
 
 
 # Application configuration.
-SDR_SAMPLE_SIZE = 1024	# Number of samples to grab from the radio.  Should be
-						# larger than the maximum display width.
 
-CLICK_DEBOUNCE  = 0.4	# Number of seconds to wait between clicks events. Set
+#SDR_SAMPLE_SIZE = 512  # Number of samples per frequency bin to grab from the radio.  Should be
+#SDR_SAMPLE_SIZE = 1024	# larger than the maximum display width.
+#SDR_SAMPLE_SIZE = 2048
+#SDR_SAMPLE_SIZE = 4096
+SDR_SAMPLE_SIZE = 8192  # This ithe default value to allow zooming the display to a 10kHz span in 320 pixels with a sample rate of 0.230 MHz.
+#SDR_SAMPLE_SIZE = 16384				
+
+
+
+CLICK_DEBOUNCE  = 0.04	# Number of seconds to wait between clicks events. Set
 						# to a few hunded milliseconds to prevent accidental
 						# double clicks from hard screen presses.
 
 # Font size configuration.
-MAIN_FONT = 33
-NUM_FONT  = 50
+MAIN_FONT = 26
+NUM_FONT  = 30
 
 # Color configuration (RGB tuples, 0 to 255).
-MAIN_BG        = (  0,   0,   0) # Black
-INPUT_BG       = ( 60, 255, 255) # Cyan-ish
-INPUT_FG       = (  0,   0,   0) # Black
-CANCEL_BG      = (128,  45,  45) # Dark red
-ACCEPT_BG      = ( 45, 128,  45) # Dark green
-BUTTON_BG      = ( 60,  60,  60) # Dark gray
-BUTTON_FG      = (255, 255, 255) # White
-BUTTON_BORDER  = (200, 200, 200) # White/light gray
-INSTANT_LINE   = (  0, 255, 128) # Bright yellow green.
+MAIN_BG        = ( 5,   45,  45) # Dark Brown
+INPUT_BG       = MAIN_BG
+INPUT_FG       = ( 60, 255, 255) # Cyan-ish
+CANCEL_BG      = MAIN_BG
+ACCEPT_BG      = MAIN_BG
+BUTTON_BG      = MAIN_BG
+BUTTON_FG      = INPUT_FG 
+BUTTON_BORDER  = MAIN_BG
+SYMBOL_FG      =  ( 255, 255,  0) # Bright Yellow
+INSTANT_LINE   = ( 150, 255, 255) # Bright yellow green.
+GRID_LINE      = (  119, 119, 130) # Light Grey
+GRID_BG        = (  10,  10,  30) # Dark Blue
+CENTER_LINE    = ( 125, 0,   0) # Red
+BLACK	       = (   0, 0,   0) # Black
+LINE_SHADOW      = (  96, 96, 96) # Medium Grey
 
 # Define gradient of colors for the waterfall graph.  Gradient goes from blue to
 # yellow to cyan to red.
@@ -76,7 +90,7 @@ if __name__ == '__main__':
 	os.putenv('SDL_MOUSEDEV'   , '/dev/input/touchscreen')
 	pygame.display.init()
 	pygame.font.init()
-	pygame.mouse.set_visible(False)
+	pygame.mouse.set_visible(True)
 	# Get size of screen and create main rendering surface.
 	size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
 	screen = pygame.display.set_mode(size, pygame.FULLSCREEN)

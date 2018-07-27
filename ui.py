@@ -22,7 +22,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+# Enhancements over the original Freqshow by Dan Stixrud, WQ7T
 import pygame
+
 
 
 # Alignment constants.
@@ -55,7 +57,7 @@ def get_font(size):
 		font_cache[size] = pygame.font.Font(None, size)
 	return font_cache[size]
 
-def render_text(text, size=33, fg=(255, 255, 255), bg=(0, 0, 0)):
+def render_text(text, size=18, fg=( 222, 184, 135), bg=(19, 19, 30)):
 	"""Render the provided text to a surface which is returned."""
 	if bg is not None:
 		# Optimized case when the background is known.
@@ -68,12 +70,15 @@ def render_text(text, size=33, fg=(255, 255, 255), bg=(0, 0, 0)):
 class Button(object):
 	# Default color and other button configuration.  Can override these values
 	# to change all buttons.
-	fg_color     = (255, 255, 255)
-	bg_color     = (60, 60, 60)
-	border_color = (200, 200, 200)
+#       fg_color     = (255, 255, 255)
+	fg_color     = ( 60, 255, 255)
+#       bg_color     = (60, 60, 60)
+	bg_color     = ( 19,  19,  30)
+#       border_color = (200, 200, 200)
+	border_color = ( 19,  19,  30)
 	padding_px   = 2
 	border_px    = 2
-	font_size    = 33
+	font_size    = 26
 
 	def __init__(self, rect, text, click=None, font_size=None, bg_color=None):
 		"""Create a button at the provided rect (tuple of x, y, width, height)
